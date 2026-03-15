@@ -1,0 +1,142 @@
+<PostItem>:
+	orientation: "vertical"
+    size_hint_y: None
+    padding: 15
+    spacing: 10
+    height: self.minimum_height
+	
+	canvas.before:
+        Color:
+            rgba: 0.12, 0.12, 0.12, 1
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [15]
+	
+	Label:
+		text: root.title
+		font_size: "20sp"
+		bold: True
+		size_hint_y: 1
+	
+	Label:
+        text: root.username
+        bold: True
+        size_hint_y: None
+        height: self.texture_size[1]
+        text_size: self.width, None
+        color: 0.8, 0.8, 1, 1
+
+    Label:
+        text: root.body
+        size_hint_y: None
+        text_size: self.width, None
+        height: self.texture_size[1]
+        color: 1, 1, 1, 1
+
+    BoxLayout:
+        size_hint_y: None
+        height: 40
+
+        Button:
+            text: "♥ " + str(root.likes)
+            size_hint_x: None
+            width: 90
+            background_normal: ""
+            background_color: 0.8, 0.2, 0.3, 1
+            on_release: root.like_post()
+	Label:
+        text: root.timestamp
+        font_size: "12sp"
+        color: 0.7, 0.7, 0.7, 1
+
+
+<MainPage>
+	BoxLayout:
+		#Orientation uses vertical or horizontal to determine the direction of the layout
+		orientation: "vertical"
+		size: root.width, root.height
+		#padding adds a buffer from the edge of the layout (left, top, right, bottom)
+		#spacing adds a buffer between the widgets in the layout
+		padding: 30, 0, 30, 0
+		spacing: 0
+
+
+
+		Label:
+			text: "BuddyUp"
+			canvas.before:
+				Color:
+					rgba: 1, 1, 1, 1
+				Rectangle:
+					pos: self.pos
+					size: self.size
+			canvas.after:
+				Color:
+					rgba: 0, 0, 0, 1
+				Line:
+					width: 4
+					rectangle: (self.x, self.y, self.width, self.height)	
+			pos_hint: {"center_x": 0.5, "center_y": 0.5}
+			size_hint: (1, .25)
+			color: 0, 0, 0, 1
+			#This resizes the text in something to adjust with the container
+			font_size: self.height * 0.4
+			outline_color: 0, 0.5, 0, 1
+			outline_width: 4
+			
+		#This is the formatting for the post viewer itself
+		RecycleView:
+			id: rv
+			viewclass: "PostItem"
+			size_hint: (1, 1)
+			
+			RecycleBoxLayout:
+				default_size: None, dp(120)
+				default_size_hint: 1, None
+				size_hint_y: None
+				height: self.minimum_height
+				orientation: "vertical"
+		#This was simply to get a temporary body to a created post object
+		#Delete this once the post creation screen is properly implimented
+		TextInput:
+			id: post_input
+			hint_text: "Write a post..."
+
+		#make this into a gridLayout for the various buttons
+		GridLayout:
+			cols: 2
+			pos_hint: {"center_x": 0.5, "center_y": 0.5}
+			size_hint:(1, .25)
+			
+			Button:
+				text: "Create a post"
+				font_size: self.height * 0.35
+				#Change this command below with sending to the post creation screen.
+				on_press: root.submit_post()
+				color: 0, 0, 0, 1
+				outline_color: 0, 0.5, 0, 1
+				outline_width: 4
+				background_normal: ''
+				background_color: 0.25, 0.25, 0.25, 1
+				canvas.after:
+					Color:
+						rgba: 0.75, 0.75, 0.75, 1
+					Line:
+						width: 2
+						rectangle: (self.x, self.y, self.width, self.height)
+			Button:
+				text: "Profile"
+				font_size: self.height * 0.35
+				on_press: print("work in progress")
+				color: 0, 0, 0, 1
+				outline_color: 0, 0.5, 0, 1
+				outline_width: 4
+				background_normal: ''
+				background_color: 0.25, 0.25, 0.25, 1
+				canvas.after:
+					Color:
+						rgba: 0.75, 0.75, 0.75, 1
+					Line:
+						width: 2
+						rectangle: (self.x, self.y, self.width, self.height)
