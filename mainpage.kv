@@ -1,0 +1,111 @@
+
+<MyScreen1>
+	name: 'main_page'
+	BoxLayout:
+		#Orientation uses vertical or horizontal to determine the direction of the layout
+		orientation: "vertical"
+		size: root.width, root.height
+		#padding adds a buffer from the edge of the layout (left, top, right, bottom)
+		#spacing adds a buffer between the widgets in the layout
+		padding: 30, 0, 30, 0
+		spacing: 0
+
+
+
+		Label:
+			text: "BuddyUp"
+			canvas.before:
+				Color:
+					rgba: 1, 1, 1, 1
+				Rectangle:
+					pos: self.pos
+					size: self.size
+			canvas.after:
+				Color:
+					rgba: 0, 0, 0, 1
+				Line:
+					width: 4
+					rectangle: (self.x, self.y, self.width, self.height)	
+			pos_hint: {"center_x": 0.5, "center_y": 0.5}
+			size_hint: (1, .25)
+			color: 0, 0, 0, 1
+			#This resizes the text in something to adjust with the container
+			font_size: self.height * 0.4
+			outline_color: 0, 0.5, 0, 1
+			outline_width: 4
+			
+		#This is the formatting for the post viewer itself
+		RecycleView:
+			id: rv
+			viewclass: "PostItem"
+			size_hint: (1, 1)
+			
+			RecycleBoxLayout:
+				default_size: None, dp(120)
+				default_size_hint: 1, None
+				size_hint_y: None
+				height: self.minimum_height
+				orientation: "vertical"
+		
+		#make this into a gridLayout for the various buttons
+		GridLayout:
+			cols: 2
+			pos_hint: {"center_x": 0.5, "center_y": 0.5}
+			size_hint:(1, .25)
+			
+			Button:
+				text: "Create a post"
+				font_size: self.height * 0.35
+				on_press: print("POSTED BABY!")
+				color: 0, 0, 0, 1
+				outline_color: 0, 0.5, 0, 1
+				outline_width: 4
+				background_normal: ''
+				background_color: 0.25, 0.25, 0.25, 1
+				canvas.after:
+					Color:
+						rgba: 0.75, 0.75, 0.75, 1
+					Line:
+						width: 2
+						rectangle: (self.x, self.y, self.width, self.height)
+			Button:
+				text: "Profile"
+				font_size: self.height * 0.35
+				on_release: root.manager.current = root.manager.next()
+				color: 0, 0, 0, 1
+				outline_color: 0, 0.5, 0, 1
+				outline_width: 4
+				background_normal: ''
+				background_color: 0.25, 0.25, 0.25, 1
+				canvas.after:
+					Color:
+						rgba: 0.75, 0.75, 0.75, 1
+					Line:
+						width: 2
+						rectangle: (self.x, self.y, self.width, self.height)
+
+
+<PostItem>:
+	orientation: "vertical"
+	size_hint_y: None
+	height: self.minimum_height
+	padding: dp(10)
+	spacing: dp(5)
+	
+	Label:
+		text: root.title
+		font_size: "20sp"
+		bold: True
+		size_hint_y: 1
+	
+	Label:
+		text: root.body
+		font_size: "16sp"
+		text_size: self.width, None
+		size_hint_y: 1
+	
+	Button:
+		text: "You sonuvabitch I'm in"
+		on_press: print("Bitchin")
+		size_hint_y: None
+        height: dp(40)

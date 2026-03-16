@@ -1,0 +1,29 @@
+<MyScreen2>:
+    name: 'screen_two'
+
+    BoxLayout:
+        orientation: 'vertical'
+
+        Label:
+            text: f'I am {root.name}'
+        Button:
+            text: 'Go to screen 3'
+            on_release: root.manager.current = 'screen_three'
+        Button:
+            text: 'Go to next screen'
+            on_release: root.manager.current = root.manager.next()
+        Button:
+            text: 'Go to previous screen'
+            on_release: root.manager.current = root.manager.previous()
+        Button:
+            text: 'This screen method'
+            on_release: root.screen_method()
+        Button:
+            text: 'Other screen method (from screen 1)'
+            on_release: root.manager.get_screen('screen_one').screen_method()
+        Button:
+            text: 'Screen manager method'
+            on_release: root.manager.screen_manager_method()
+        Button:
+            text: 'App method'
+            on_release: app.app_method()
