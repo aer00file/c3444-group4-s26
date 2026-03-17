@@ -16,7 +16,7 @@ class PostItem(BoxLayout):
     title = StringProperty("")
     body = StringProperty("")
 
-class MyScreen1(Screen):
+class MainPage(Screen):
     def screen_method(self):
         Builder.load_file('buddyupMainPage.kv')
     def on_kv_post(self, base_widget):
