@@ -84,7 +84,7 @@ class MainPage(Screen):
         #Sort posts from newest to oldest
         posts.sort(key=lambda p: p["raw_timestamp"], reverse=True)
         self.ids.rv.data = posts
-        
+    #Searches all posts to display all that contian the query string. Can add filter for what it checks with category.    
     def search_posts(self, query, category="all"):
         query = query.lower().strip()
         #Reset the full feed if the search value is empty
@@ -115,14 +115,11 @@ class MainPage(Screen):
     
             elif category == "user":
                 match = query in user
-    
-            elif category == "title":
-                title = value.get("title", "").lower()
-                match = query in title
 
             # Add more categories later if needed
 
             #Based off of a substring match (Eg: "dog" gives "dog" and "hotdog")
+            #Can replace match with "query in" followed by the name of the component in the database. (username)
             if match:
                 timestamp = value.get("timeposted", 0)
                 dt = datetime.fromtimestamp(timestamp)
