@@ -107,6 +107,7 @@ class MainPage(Screen):
             match = False
 
             #These cover just different cases of what part of the post we want to search specifically
+            #Can omit this "if elif" section if you are hard coding a specific category for that display.
             if category == "all":
                 match = query in content or query in user
 
@@ -115,8 +116,6 @@ class MainPage(Screen):
     
             elif category == "user":
                 match = query in user
-
-            # Add more categories later if needed
 
             #Based off of a substring match (Eg: "dog" gives "dog" and "hotdog")
             #Can replace match with "query in" followed by the name of the component in the database. (username)
@@ -133,7 +132,7 @@ class MainPage(Screen):
                     "likes": value.get("likes", 0)
                 })
 
-        # Sort results newest to oldest
+        #Sort results newest to oldest
         results.sort(key=lambda p: p["raw_timestamp"], reverse=True)
         self.ids.rv.data = results
         
