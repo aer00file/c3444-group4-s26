@@ -84,6 +84,12 @@
 			font_size: self.height * 0.4
 			outline_color: 0, 0.5, 0, 1
 			outline_width: 4
+		TextInput:
+			id: search_input
+			hint_text: "Enter what you would like to search for..."
+			size_hint_y: None
+			height: "40dp"
+			on_text: root.search_posts(self.text)
 			
 		#This is the formatting for the post viewer itself
 		RecycleView:
