@@ -137,6 +137,18 @@ class MainPage(Screen):
         #Sort results newest to oldest
         results.sort(key=lambda p: p["raw_timestamp"], reverse=True)
         self.ids.rv.data = results
+        return results
+    #This is for sending the search results to another screen. If you are keeping the search results to the main screen, then do not use this function.
+    #You will need to copy the display code from this screen to the new one for the sake of displaying it there.
+    #EG: def on_enter(self):
+        #self.ids.rv.data = self.manager.search_results
+
+    def external_screen_search(self, query, category="all"):
+        #Runs the search
+        results = self.search_posts(query, category)
+
+        #Stores results in the ScreenManager so other screens can access them
+        self.manager.search_results = results
         
 class BuddyUpApp(App):
     def build(self):
