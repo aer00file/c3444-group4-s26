@@ -18,3 +18,18 @@ class LoginScreen(Screen):
             self.manager.current = "main"
         else:
             self.ids.message.text = "Invalid username or password"
+
+    def sign_up(self):
+        username= self.ids.username.text
+        password = self.ids.password.text
+
+        success = signUp(username, password)
+
+        if success:
+            App.get_running_app().current_user_email = username
+            self.manager.current_user = username
+
+            # switch screens
+            self.manager.current = "main"
+        else:
+            self.ids.message.text = "Invalid username or password"
