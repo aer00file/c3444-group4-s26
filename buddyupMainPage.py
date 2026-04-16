@@ -84,7 +84,9 @@ class MainPage(Screen):
         #Sort posts from newest to oldest
         posts.sort(key=lambda p: p["raw_timestamp"], reverse=True)
         self.ids.rv.data = posts
-    #Searches all posts to display all that contian the query string. Can add filter for what it checks with category.    
+    #Searches all posts to display all that contian the query string. Can add filter for what it checks with category.
+    #To call with a specific category in mind, call it as search_posts(query, "category name")
+    #If done on .kv file: root.search_posts(self.text, "category name")
     def search_posts(self, query, category="all"):
         query = query.lower().strip()
         #Reset the full feed if the search value is empty
