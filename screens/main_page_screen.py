@@ -32,7 +32,7 @@ class PostItem(BoxLayout):
 class MainPage(Screen):
     #This function submits the current post information as a new object in the database
     #This is essentially my placeholder function that you could call if you wish to from the post creation screen.
-
+    
     is_creating_post = BooleanProperty(False) #toggle for posting buttons
     def show_post_input(self):
         self.is_creating_post = True
@@ -50,7 +50,7 @@ class MainPage(Screen):
 
         create_post(user_email, content)
         self.ids.post_input.text = ""  # clear input
-        self.hide_post_input()         # 👈 hide input
+        self.hide_post_input()         # hide input
         self.load_posts()              # refresh feed
     
     def on_enter(self):
@@ -86,3 +86,70 @@ class MainPage(Screen):
         posts.sort(key=lambda p: p["raw_timestamp"], reverse=True)
 
         self.ids.rv.data = posts
+
+    #Searches all posts to display all that contian the query string. Can add filter for what it checks with category.
+    #To call with a specific category in mind, call it as search_posts(query, "category name")
+    #If done on .kv file: root.search_posts(self.text, "category name")
+    def search_posts(self, query, category="all"):
+        query = query.lower().strip()
+        #Reset the full feed if the search value is empty
+        if not query:
+            self.load_posts()
+            return
+
+        raw_posts = get_posts()
+        #Results is for the values that match the search
+        results = []
+
+        for post_id, value in raw_posts.items():
+            #Safe guard against any corrupted posts
+            if not isinstance(value, dict):
+                continue
+            #Bring everything to lowercase so searches then are not case sensetive
+            content = value.get("content", "").lower()
+            user = value.get("user", "").lower()
+            
+            match = False
+
+            #These cover just different cases of what part of the post we want to search specifically
+            #Can omit this "if elif" section if you are hard coding a specific category for that display.
+            if category == "all":
+                match = query in content or query in user
+
+            elif category == "content":
+                match = query in content
+    
+            elif category == "user":
+                match = query in user
+
+            #Based off of a substring match (Eg: "dog" gives "dog" and "hotdog")
+            #Can replace match with "query in" followed by the name of the component in the database. (username)
+            if match:
+                timestamp = value.get("timeposted", 0)
+                dt = datetime.fromtimestamp(timestamp)
+                #Adds the post to results
+                results.append({
+                    "post_id": post_id,
+                    "username": value.get("user", "Unknown"),
+                    "body": value.get("content", ""),
+                    "timestamp": dt.strftime("%Y-%m-%d %H:%M"),
+                    "raw_timestamp": timestamp,
+                    "likes": value.get("likes", 0)
+                })
+
+        #Sort results newest to oldest
+        results.sort(key=lambda p: p["raw_timestamp"], reverse=True)
+        self.ids.rv.data = results
+        return results
+    #This is for sending the search results to another screen. If you are keeping the search results to the main screen, then do not use this function.
+    #You will need to copy the display code from this screen to the new one for the sake of displaying it there.
+    #EG: def on_enter(self):
+        #self.ids.rv.data = self.manager.search_results
+
+    def external_screen_search(self, query, category="all"):
+        #Runs the search
+        results = self.search_posts(query, category)
+
+        #Stores results in the ScreenManager so other screens can access them
+        self.manager.search_results = results
+
