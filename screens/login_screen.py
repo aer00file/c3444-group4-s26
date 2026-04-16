@@ -1,6 +1,6 @@
 from kivy.uix.screenmanager import Screen
 from kivy.app import App
-from firebase_Auth import login_user
+from firebase_Auth import login_user, signUp
 
 class LoginScreen(Screen):
 
