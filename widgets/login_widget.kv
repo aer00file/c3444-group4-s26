@@ -20,13 +20,14 @@
             password: True
             multiline: False
 
+        #Buttons to call the appropriate function with TextInput
         Button:
             text: "Log In"
             on_press: root.login()
         Button:
             text: "Sign Up"
             on_press: root.sign_up()
-
+        #Label that error message will display on if something happens
         Label:
             id: message
             text: ""
