@@ -3,7 +3,7 @@
         orientation: "vertical"
         padding: dp(20)
         spacing: dp(10)
-
+		#Can change the text and possible get rid of this one for if we make other peoples profiles viewable
         Label:
             text: "Your Profile"
             font_size: "24sp"
@@ -24,29 +24,30 @@
             size_hint_y: None
             height: dp(30)
 			
-		# Hidden by default
+		#Hidden by default
         TextInput:
             id: bio_input
             hint_text: "Edit your bio..."
             multiline: True
             size_hint_y: None
+			#Size gets changed by toggle_bio_edit()
             height: 0
             opacity: 0
             disabled: True
-
+		#Changes into the submit button upon press and reverts back after
         Button:
             id: edit_button
             text: "Edit Bio"
             size_hint_y: None
             height: dp(40)
             on_press: root.toggle_bio_edit()
-
+		
         Label:
             text: "Your Posts"
             font_size: "20sp"
             size_hint_y: None
             height: dp(40)
-
+		#Uses the PostItem class so you can edit this from mainpage_widget.kv
         RecycleView:
             id: rv
             viewclass: "PostItem"
@@ -56,7 +57,7 @@
                 size_hint_y: None
                 height: self.minimum_height
                 orientation: "vertical"
-				
+		#Simply a button that returns to mainpage on press
 		Button:
 			text: "Back"
 			font_size: self.height * 0.35
