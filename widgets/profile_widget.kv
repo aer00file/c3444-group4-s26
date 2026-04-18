@@ -1,0 +1,77 @@
+<ProfileScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: dp(20)
+        spacing: dp(10)
+
+        Label:
+            text: "Your Profile"
+            font_size: "24sp"
+            size_hint_y: None
+            height: dp(40)
+
+        Label:
+            id: email_label
+            text: "Email"
+            font_size: "18sp"
+            size_hint_y: None
+            height: dp(30)
+
+        Label:
+            id: bio_label
+            text: "Bio"
+            font_size: "16sp"
+            size_hint_y: None
+            height: dp(30)
+			
+		# Hidden by default
+        TextInput:
+            id: bio_input
+            hint_text: "Edit your bio..."
+            multiline: True
+            size_hint_y: None
+            height: 0
+            opacity: 0
+            disabled: True
+
+        Button:
+            id: edit_button
+            text: "Edit Bio"
+            size_hint_y: None
+            height: dp(40)
+            on_press: root.toggle_bio_edit()
+
+        Label:
+            text: "Your Posts"
+            font_size: "20sp"
+            size_hint_y: None
+            height: dp(40)
+
+        RecycleView:
+            id: rv
+            viewclass: "PostItem"
+            RecycleBoxLayout:
+                default_size: None, dp(120)
+                default_size_hint: 1, None
+                size_hint_y: None
+                height: self.minimum_height
+                orientation: "vertical"
+				
+		Button:
+			text: "Back"
+			font_size: self.height * 0.35
+			on_press: root.go_back()
+			color: 0, 0, 0, 1
+			outline_color: 0, 0.5, 0, 1
+			outline_width: 4
+			background_normal: ''
+			background_color: 0.25, 0.25, 0.25, 1
+			size_hint_y: None
+			height: dp(50)
+			canvas.after:
+				Color:
+					rgba: 0.75, 0.75, 0.75, 1
+				Line:
+					width: 2
+					rectangle: (self.x, self.y, self.width, self.height)
+
