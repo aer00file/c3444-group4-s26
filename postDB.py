@@ -27,3 +27,24 @@ def update_likes(post_id, new_likes):
         url = f"{DATABASE_URL}/posts/{post_id}.json"
         data = {"likes": new_likes}
         requests.patch(url, json=data)
+    
+def createUserProfile(userUID, email):
+    url = f"{DATABASE_URL}/users/{userUID}.json"
+    data = {
+        "email": email,
+        "bio": ""
+    }
+    response = requests.put(url, json=data)
+    return response.json() 
+
+def getProfile(userUID):
+    url = f"{DATABASE_URL}/users/{userUID}.json"
+
+    response = requests.get(url)
+    return response.json()
+    
+def updateBio(userUID, new_bio):
+    url = f"{DATABASE_URL}/users/{userUID}.json"
+    data = {"bio": new_bio}
+    response = requests.patch(url, json=data)
+    return response.json()
