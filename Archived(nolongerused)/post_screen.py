@@ -48,6 +48,7 @@ class PostScreen(Screen):
 
         self.add_widget(layout)
 
+
     def create_post(self, instance):
         text = self.input_box.text.strip()
         if text:

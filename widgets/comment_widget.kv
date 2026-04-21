@@ -1,0 +1,34 @@
+<CommentWidget>:
+    orientation: "vertical"
+    size_hint_y: None
+    height: self.minimum_height
+    padding: 10
+    spacing: 5
+
+    canvas.before:
+        Color:
+            rgba: 0.15, 0.15, 0.15, 1
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [10]
+
+    BoxLayout:
+        size_hint_y: None
+        height: 20
+
+        Label:
+            text: root.username
+            bold: True
+            color: 0.6, 0.8, 1, 1
+
+        Label:
+            text: root.timestamp
+            font_size: 10
+            halign: "right"
+
+    Label:
+        text: root.text
+        text_size: self.width, None
+        size_hint_y: None
+        height: self.texture_size[1]

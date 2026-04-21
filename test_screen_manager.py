@@ -1,22 +1,39 @@
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager
 from kivy.lang import Builder
+from widgets.post_widget import PostItem
+from kivy.uix.button import Button
+from kivy.core.text import LabelBase
+
+# Font w/emojis
+LabelBase.register(
+    name="EmojiFont",
+    fn_regular="C:/Windows/Fonts/seguiemj.ttf"
+)
 
 # Load Widget files
 Builder.load_file("widgets/post_widget.kv")
+Builder.load_file("widgets/comment_widget.kv")
+Builder.load_file("widgets/mainpage_widget.kv")
 Builder.load_file("widgets/login_widget.kv")
+Builder.load_file("widgets/profile_widget.kv")
 
 # Import screens
-from screens.post_screen import PostScreen
+from screens.main_page_screen import MainPage
 from screens.login_screen import LoginScreen
+from screens.comment_screen import CommentScreen
+from screens.profile_screen import ProfileScreen
 
 # Actual Testing Logic
 class TestApp(App):
     def build(self):
+        self.current_user_email = "tempuser"
         sm = ScreenManager()
 
         sm.add_widget(LoginScreen(name="login"))
-        sm.add_widget(PostScreen(name="post"))
+        sm.add_widget(MainPage(name="main"))
+        sm.add_widget(CommentScreen(name="comment"))
+        sm.add_widget(ProfileScreen(name="profile"))
 
         sm.current = "login"
 

@@ -1,0 +1,102 @@
+<MainPage>:
+    # ROOT LAYOUT (entire screen container)
+    BoxLayout:
+        orientation: "vertical"
+        size_hint: 1, 1
+
+        # Outer padding (left/right margins for content)
+        padding: 30, 0, 30, 0
+
+        # No spacing between major sections (header/feed/footer)
+        spacing: 0
+
+        # Background for entire screen (dark theme)
+        canvas.before:
+            Color:
+                rgba: 0.08, 0.08, 0.08, 1   # dark gray/black background
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+
+        # =======================
+        # HEADER SECTION (Top Bar)
+        # =======================
+        BoxLayout:
+            size_hint_y: None
+            height: 80
+            padding: 10
+
+            # Header background
+            canvas.before:
+                Color:
+                    rgba: 0.05, 0.05, 0.05, 1   # slightly darker than body
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            # Bottom border line (separator)
+            canvas.after:
+                Color:
+                    rgba: 0.8, 0.8, 0.8, 1
+                Line:
+                    width: 1.2
+                    points: self.x, self.y, self.right, self.y
+
+            # App Title
+            Label:
+                text: "BuddyUp"
+                font_size: 32
+                bold: True
+                color: 0, 0.36, 0.02, 1   # green accent color
+
+        # =======================
+        # Search
+        # =======================
+
+        TextInput:
+            id: search_input
+            hint_text: "Enter what you would like to search for..."
+            size_hint_y: None
+            height: "40dp"
+
+            # SAFE VERSION — prevents search from firing before RV exists
+            on_text:
+                if root.ids.rv: root.search_posts(self.text)
+
+        # =======================
+        # FEED SECTION (Posts)
+        # =======================
+        RecycleView:
+            id: rv
+            viewclass: "PostItem"
+            size_hint_y: 1 if not root.is_creating_post else 0.85
+
+            # Layout for stacking posts vertically
+            RecycleBoxLayout:
+                default_size: None, dp(120)   # default height per post
+                default_size_hint: 1, None
+                size_hint_y: None
+                height: self.minimum_height
+                orientation: "vertical"
+
+                spacing: 20   # space between posts
+                padding: 10   # inner padding of feed
+
+        # =======================
+        # BOTTOM BAR (FIXED)
+        # =======================
+        BoxLayout:
+            size_hint_y: None
+            height: 70
+            padding: 10
+
+            canvas.before:
+                Color:
+                    rgba: 0.05, 0.05, 0.05, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            BoxLayout:
+                id: bottom_container

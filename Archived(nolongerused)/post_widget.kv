@@ -1,0 +1,41 @@
+<PostWidget>:
+    orientation: "vertical"
+    size_hint_y: None
+    padding: 15
+    spacing: 10
+    height: self.minimum_height
+
+    canvas.before:
+        Color:
+            rgba: 0.12, 0.12, 0.12, 1
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [15]
+
+    Label:
+        text: root.username
+        bold: True
+        size_hint_y: None
+        height: self.texture_size[1]
+        text_size: self.width, None
+        color: 0.8, 0.8, 1, 1
+
+    Label:
+        text: root.body
+        size_hint_y: None
+        text_size: self.width, None
+        height: self.texture_size[1]
+        color: 1, 1, 1, 1
+
+    BoxLayout:
+        size_hint_y: None
+        height: 40
+
+        Button:
+            text: "♥ " + str(root.likes)
+            size_hint_x: None
+            width: 90
+            background_normal: ""
+            background_color: 0.8, 0.2, 0.3, 1
+            on_release: root.like_post()

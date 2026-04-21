@@ -1,0 +1,146 @@
+<ProfileScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        size_hint: 1, 1
+        padding: 30, 0, 30, 0
+        spacing: 0
+
+        canvas.before:
+            Color:
+                rgba: 0.08, 0.08, 0.08, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        # =======================
+        # HEADER
+        # =======================
+        BoxLayout:
+            size_hint_y: None
+            height: 80
+            padding: 10
+
+            canvas.before:
+                Color:
+                    rgba: 0.05, 0.05, 0.05, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            canvas.after:
+                Color:
+                    rgba: 0.8, 0.8, 0.8, 1
+                Line:
+                    width: 1.2
+                    points: self.x, self.y, self.right, self.y
+
+            Label:
+                text: "Your Profile"
+                font_size: 32
+                bold: True
+                color: 0, 0.36, 0.02, 1
+
+        # =======================
+        # PROFILE CARD (like a post)
+        # =======================
+        BoxLayout:
+            orientation: "vertical"
+            size_hint_y: None
+            height: self.minimum_height
+            padding: 12
+            spacing: 8
+
+            canvas.before:
+                Color:
+                    rgba: 0.08, 0.08, 0.08, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [12]
+
+            Label:
+                id: email_label
+                color: 0.4, 0.8, 0.4, 1
+                bold: True
+                size_hint_y: None
+                height: self.texture_size[1]
+
+            Label:
+                id: bio_label
+                color: 1, 1, 1, 1
+                size_hint_y: None
+                height: self.texture_size[1]
+
+            TextInput:
+                id: bio_input
+                hint_text: "Edit your bio..."
+                multiline: True
+                size_hint_y: None
+                height: 0
+                opacity: 0
+                disabled: True
+                background_normal: ''
+                background_color: 0.15, 0.15, 0.15, 1
+                foreground_color: 1, 1, 1, 1
+
+            # ACTION ROW (like PostItem buttons)
+            BoxLayout:
+                size_hint_y: None
+                height: 40
+                spacing: 10
+
+                Button:
+                    id: edit_button
+                    text: "Edit Bio"
+                    size_hint_x: 1
+                    background_normal: ''
+                    background_color: 0.3, 0.3, 0.3, 1
+                    on_press: root.toggle_bio_edit()
+
+        # =======================
+        # POSTS TITLE
+        # =======================
+        Label:
+            text: "Your Posts"
+            font_size: 20
+            size_hint_y: None
+            height: 40
+            color: 1, 1, 1, 1
+
+        # =======================
+        # POSTS LIST
+        # =======================
+        RecycleView:
+            id: rv
+            viewclass: "PostItem"
+
+            RecycleBoxLayout:
+                default_size: None, dp(120)
+                default_size_hint: 1, None
+                size_hint_y: None
+                height: self.minimum_height
+                orientation: "vertical"
+
+                spacing: 20
+                padding: 10
+
+        # =======================
+        # BOTTOM BAR (matches main page)
+        # =======================
+        BoxLayout:
+            size_hint_y: None
+            height: 70
+            padding: 10
+
+            canvas.before:
+                Color:
+                    rgba: 0.05, 0.05, 0.05, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            Button:
+                text: "Back"
+                background_normal: ''
+                background_color: 0.3, 0.3, 0.3, 1
+                on_release: root.go_back()

@@ -3,27 +3,121 @@
 
     BoxLayout:
         orientation: "vertical"
-        padding: 40
-        spacing: 15
+        size_hint: 1, 1
+        padding: 30, 0, 30, 0
+        spacing: 0
 
-        Label:
-            text: "Login"
+        # =======================
+        # BACKGROUND
+        # =======================
+        canvas.before:
+            Color:
+                rgba: 0.08, 0.08, 0.08, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
 
-        TextInput:
-            id: username
-            hint_text: "Username"
-            multiline: False
+        # =======================
+        # HEADER (same as main)
+        # =======================
+        BoxLayout:
+            size_hint_y: None
+            height: 80
+            padding: 10
 
-        TextInput:
-            id: password
-            hint_text: "Password"
-            password: True
-            multiline: False
+            canvas.before:
+                Color:
+                    rgba: 0.05, 0.05, 0.05, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
 
-        Button:
-            text: "Log In"
-            on_press: root.login()
+            canvas.after:
+                Color:
+                    rgba: 0.8, 0.8, 0.8, 1
+                Line:
+                    width: 1.2
+                    points: self.x, self.y, self.right, self.y
 
-        Label:
-            id: message
-            text: ""
+            Label:
+                text: "BuddyUp"
+                font_size: 32
+                bold: True
+                color: 0, 0.36, 0.02, 1
+
+        # =======================
+        # LOGIN CARD (like a post)
+        # =======================
+        BoxLayout:
+            orientation: "vertical"
+            size_hint_y: None
+            height: self.minimum_height
+            padding: 15
+            spacing: 10
+
+            canvas.before:
+                Color:
+                    rgba: 0.08, 0.08, 0.08, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [12]
+
+            Label:
+                text: "Login"
+                font_size: 22
+                bold: True
+                color: 1, 1, 1, 1
+                size_hint_y: None
+                height: self.texture_size[1]
+
+            TextInput:
+                id: email
+                hint_text: "Email"
+                multiline: False
+                size_hint_y: None
+                height: 45
+                background_normal: ''
+                background_color: 0.15, 0.15, 0.15, 1
+                foreground_color: 1, 1, 1, 1
+
+            TextInput:
+                id: password
+                hint_text: "Password (Minimum: 6 characters)"
+                password: True
+                multiline: False
+                size_hint_y: None
+                height: 45
+                background_normal: ''
+                background_color: 0.15, 0.15, 0.15, 1
+                foreground_color: 1, 1, 1, 1
+
+            # =======================
+            # BUTTON ROW (matches your app)
+            # =======================
+            BoxLayout:
+                size_hint_y: None
+                height: 45
+                spacing: 10
+
+                Button:
+                    text: "Log In"
+                    background_normal: ''
+                    background_color: 0, 0.36, 0.02, 1
+                    on_press: root.login()
+
+                Button:
+                    text: "Sign Up"
+                    background_normal: ''
+                    background_color: 0.3, 0.3, 0.3, 1
+                    on_press: root.signup()
+
+            Label:
+                id: message
+                text: ""
+                color: 1, 0.4, 0.4, 1
+                size_hint_y: None
+                height: self.texture_size[1]
+
+        # Spacer to center card better
+        Widget:

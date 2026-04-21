@@ -1,41 +1,81 @@
-<PostWidget>:
+<PostItem>:
     orientation: "vertical"
+    padding: 12
+    spacing: 8
     size_hint_y: None
-    padding: 15
-    spacing: 10
     height: self.minimum_height
 
     canvas.before:
         Color:
-            rgba: 0.12, 0.12, 0.12, 1
+            rgba: 0.08, 0.08, 0.08, 1
         RoundedRectangle:
             pos: self.pos
             size: self.size
-            radius: [15]
+            radius: [12]
 
-    Label:
-        text: root.username
-        bold: True
+    # HEADER
+    BoxLayout:
         size_hint_y: None
-        height: self.texture_size[1]
-        text_size: self.width, None
-        color: 0.8, 0.8, 1, 1
+        height: 25
 
+        Label:
+            text: root.username
+            bold: True
+            color: 0.4, 0.8, 0.4, 1
+            size_hint_x: 0.7
+            halign: "left"
+            valign: "middle"
+            text_size: self.size
+
+        Label:
+            text: root.timestamp
+            font_size: 10
+            color: 0.7, 0.7, 0.7, 1
+            size_hint_x: 0.3
+            halign: "right"
+            valign: "middle"
+            text_size: self.size
+
+    # BODY
     Label:
         text: root.body
-        size_hint_y: None
         text_size: self.width, None
+        size_hint_y: None
         height: self.texture_size[1]
         color: 1, 1, 1, 1
 
+    # TAGS
+    BoxLayout:
+        id: tags_container
+        size_hint_y: None
+        height: 35
+        spacing: 6
+
+    # ACTIONS
     BoxLayout:
         size_hint_y: None
         height: 40
+        spacing: 10
 
         Button:
             text: "♥ " + str(root.likes)
-            size_hint_x: None
-            width: 90
-            background_normal: ""
-            background_color: 0.8, 0.2, 0.3, 1
+            font_name: "EmojiFont"
+            opacity: 0 if root.compact_mode else 1
+            disabled: root.compact_mode
+            size_hint_x: 0.3
+            background_normal: ''
+            background_color: 0, 0.36, 0.02, 1
             on_release: root.like_post()
+
+        Button:
+            text: "View Comments"
+            opacity: 0 if root.compact_mode else 1
+            disabled: root.compact_mode
+            size_hint_x: 0.7
+            background_normal: ''
+            background_color: 0.3, 0.3, 0.3, 1
+            on_release: root.open_post()
+        BoxLayout:
+            id: tags_buttons_container
+            size_hint_x: 1
+            spacing: 5
