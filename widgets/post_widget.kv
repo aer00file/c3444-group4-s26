@@ -75,6 +75,15 @@
             background_normal: ''
             background_color: 0.3, 0.3, 0.3, 1
             on_release: root.open_post()
+        Button:
+            text: "Delete Post"
+            opacity: 0 if root.compact_mode else 1
+            disabled: root.compact_mode
+            size_hint_x: 0.3
+            background_normal: ''
+            background_color: 0, 0.36, 0.02, 1
+            on_release: root.delete_post()
+
         BoxLayout:
             id: tags_buttons_container
             size_hint_x: 1
