@@ -10,7 +10,7 @@ from kivy.properties import ObjectProperty
 from kivy.properties import StringProperty
 from kivy.properties import NumericProperty
 from kivy.lang import Builder
-from postDB import get_posts, create_post, update_likes
+from postDB import get_posts, create_post, update_likes, delete_post
 from firebase_Auth import login_user, signUp
 from datetime import datetime
 from kivy.properties import BooleanProperty
