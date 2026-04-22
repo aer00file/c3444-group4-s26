@@ -27,6 +27,15 @@ class PostItem(BoxLayout):
         }
 
         sm.current = "comment"
+
+    def delete_post(self):
+        app = App.get_running_app()
+        sm = app.root
+        from postDB import delete_post, get_posts
+        if self.username == app.current_user_email:
+            delete_post(self.post_id)
+        sm.get_screen("main").load_posts()
+        
     def like_post(self):
         from postDB import update_likes
         if hasattr(self, "liked") and self.liked:
