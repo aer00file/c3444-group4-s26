@@ -20,6 +20,11 @@ def create_post(user_email, content, tags):
     response = requests.post(url, json=data)
     return response.json()
 
+def delete_post(post_id):
+    url = f"{DATABASE_URL}/posts/{post_id}.json"
+    response = requests.delete(url)
+    return response
+
 def get_posts():
     url =f"{DATABASE_URL}/posts.json"
     response = requests.get(url)
