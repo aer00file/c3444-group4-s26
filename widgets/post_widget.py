@@ -64,7 +64,7 @@ class PostItem(BoxLayout):
         sm.current = "main"
 
         main_screen.ids.search_input.text = tag
-        main_screen.search_posts(tag)
+        main_screen.search_posts(tag, "tags")
 
     def on_kv_post(self, base_widget):
         self.load_tags()
