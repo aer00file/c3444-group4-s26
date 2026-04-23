@@ -219,6 +219,9 @@ class MainPage(Screen):
 
             elif category == "user":
                 match = query in user
+                
+            elif category == "tags":
+                match = any(query in tag for tag in tags)
 
             # Based off of a substring match (Eg: "dog" gives "dog" and "hotdog")
             if match:
